@@ -1,98 +1,129 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>For Ishara</title>
-  <meta name="theme-color" content="#120a22" />
+  <meta name="theme-color" content="#0b0720"/>
+
   <style>
     :root{
-      --bg0:#0b0720;
-      --bg1:#120a22;
-      --bg2:#08122a;
-      --card: rgba(255,255,255,.08);
+      --bg0:#070615;
+      --bg1:#0b0720;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.06);
       --border: rgba(255,255,255,.14);
-      --text:#fff4fb;
-      --muted: rgba(255,244,251,.72);
-      --accent:#ff4d8d;
-      --accent2:#7c5cff;
+      --text:#fff6fb;
+      --muted: rgba(255,246,251,.72);
+      --pink:#ff4d8d;
+      --violet:#7c5cff;
       --gold:#ffd166;
-      --shadow: 0 24px 90px rgba(0,0,0,.5);
+      --shadow: 0 30px 120px rgba(0,0,0,.55);
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color:var(--text);
-      background:
-        radial-gradient(900px 550px at 18% 12%, rgba(255,77,141,.28), transparent 60%),
-        radial-gradient(900px 550px at 80% 20%, rgba(124,92,255,.25), transparent 62%),
-        radial-gradient(900px 650px at 55% 110%, rgba(255,209,102,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg2));
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(255,77,141,.25), transparent 60%),
+                  radial-gradient(1200px 700px at 85% 20%, rgba(124,92,255,.22), transparent 60%),
+                  radial-gradient(1000px 650px at 50% 115%, rgba(255,209,102,.10), transparent 60%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
       overflow-x:hidden;
     }
 
-    /* layout */
-    .wrap{width:min(1050px, 92vw); margin:0 auto; padding:26px 0 60px; position:relative; z-index:1;}
+    /* Aurora layer */
+    .aurora{
+      position:fixed; inset:-40px;
+      background:
+        radial-gradient(900px 380px at 25% 20%, rgba(255,77,141,.18), transparent 60%),
+        radial-gradient(900px 380px at 75% 28%, rgba(124,92,255,.16), transparent 60%),
+        radial-gradient(900px 380px at 55% 75%, rgba(255,209,102,.08), transparent 60%);
+      filter: blur(18px);
+      opacity:.9;
+      animation: drift 12s ease-in-out infinite alternate;
+      z-index:0;
+      pointer-events:none;
+    }
+    @keyframes drift{
+      from{ transform: translate3d(-1.5%, -1%, 0) scale(1.02); }
+      to{ transform: translate3d(1.5%, 1%, 0) scale(1.04); }
+    }
+
+    .wrap{ width:min(1100px, 92vw); margin:0 auto; padding:26px 0 70px; position:relative; z-index:1; }
+
+    /* top header */
     .top{
-      display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;
+      display:flex; justify-content:space-between; align-items:flex-start;
+      gap:14px; flex-wrap:wrap;
       margin-bottom:14px;
     }
-    .brand{
-      background: rgba(0,0,0,.10);
+    .hero{
+      flex: 1 1 640px;
+      border-radius:24px;
       border:1px solid var(--border);
-      border-radius:18px;
-      padding:14px 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-      flex: 1 1 520px;
-      min-width: 280px;
+      padding:18px 18px 16px;
+      backdrop-filter: blur(12px);
+      position:relative;
+      overflow:hidden;
     }
-    h1{margin:0; font-size:26px; letter-spacing:.2px;}
-    .sub{margin-top:6px; color:var(--muted); font-size:13px; line-height:1.45}
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(900px 280px at 20% 0%, rgba(255,77,141,.22), transparent 55%),
+                  radial-gradient(900px 280px at 80% 0%, rgba(124,92,255,.18), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .hero > *{ position:relative; z-index:1; }
+    h1{margin:0; font-size:28px; letter-spacing:.2px;}
+    .sub{margin-top:6px; color:var(--muted); font-size:13px; line-height:1.55}
     .pill{
+      height:fit-content;
+      border-radius:999px;
       border:1px solid var(--border);
       background: rgba(0,0,0,.12);
-      border-radius:999px;
       padding:10px 12px;
+      color: rgba(255,246,251,.9);
       font-size:12px;
-      color: rgba(255,244,251,.9);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow);
       white-space:nowrap;
-      height: fit-content;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
     }
 
-    .panel{
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.06);
-      border-radius:22px;
-      padding:16px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
+    /* layout grid */
     .grid{
-      margin-top:14px;
       display:grid;
       grid-template-columns: 1.05fr .95fr;
       gap:14px;
+      margin-top:14px;
     }
-    @media (max-width: 920px){
-      .grid{grid-template-columns: 1fr;}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr;} }
+
+    .panel{
+      border-radius:24px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.07);
+      box-shadow: var(--shadow);
+      padding:16px;
+      backdrop-filter: blur(12px);
     }
+    .title2{ margin:0 0 10px; font-size:18px; }
 
     /* buttons */
-    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
     button{
       border:0; cursor:pointer;
       padding:12px 14px;
       border-radius:14px;
-      font-weight:780;
+      font-weight:800;
       color:white;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      box-shadow: 0 10px 30px rgba(255,77,141,.18);
+      background: linear-gradient(90deg, var(--pink), var(--violet));
+      box-shadow: 0 14px 40px rgba(255,77,141,.16);
     }
     button.secondary{
       background: rgba(255,255,255,.10);
@@ -101,75 +132,63 @@
     }
 
     /* countdown */
-    .countWrap{display:flex; gap:12px; flex-wrap:wrap; align-items:stretch; margin-top:10px;}
-    .cd{
-      flex: 1 1 230px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.12);
-      border-radius:18px;
-      padding:14px;
-      display:flex;
+    .count{
+      display:grid;
+      grid-template-columns: 120px 1fr;
       gap:12px;
       align-items:center;
+      padding:12px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.10);
     }
-    .cdNums{
-      display:grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap:10px;
-      width:100%;
-    }
-    .box{
-      text-align:center;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      border-radius:14px;
-      padding:10px 8px;
-    }
-    .num{font-size:22px; font-weight:900;}
-    .lbl{font-size:11px; color:var(--muted); margin-top:2px}
+    @media (max-width:520px){ .count{ grid-template-columns:1fr; } }
 
-    /* heart progress ring */
     .ring{
-      width:92px; height:92px; flex:0 0 92px;
+      width:120px; height:120px;
       display:grid; place-items:center;
       position:relative;
+      margin:auto;
     }
     .ring svg{transform: rotate(-90deg);}
     .ring .t{
       position:absolute;
       font-size:12px;
-      color: rgba(255,244,251,.9);
+      color: rgba(255,246,251,.9);
       text-align:center;
       line-height:1.2;
     }
     .ring .t b{display:block; font-size:13px;}
-    .note{color:var(--muted); font-size:13px; line-height:1.55; margin:10px 0 0}
+    .boxes{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+    }
+    .box{
+      text-align:center;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      padding:10px 8px;
+    }
+    .num{font-size:22px; font-weight:950;}
+    .lbl{font-size:11px; color:var(--muted); margin-top:2px;}
+    .note{margin:10px 0 0; color:var(--muted); font-size:13px; line-height:1.6;}
+    .tiny{margin-top:10px; font-size:12px; color: rgba(255,246,251,.60);}
 
     /* envelope */
-    .envelopeStage{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:12px;
-    }
     .envelope{
-      width:min(420px, 100%);
-      margin:6px auto 0;
-      position:relative;
-      aspect-ratio: 16 / 10;
+      width:min(460px, 100%);
+      margin:14px auto 0;
+      aspect-ratio: 16/10;
       border-radius:18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
       border:1px solid rgba(255,255,255,.16);
-      box-shadow: 0 20px 70px rgba(0,0,0,.45);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      box-shadow: 0 24px 90px rgba(0,0,0,.5);
+      position:relative;
       overflow:hidden;
     }
-    .envBack{
-      position:absolute; inset:0;
-      background:
-        radial-gradient(700px 220px at 30% 10%, rgba(255,77,141,.22), transparent 60%),
-        radial-gradient(700px 220px at 80% 10%, rgba(124,92,255,.22), transparent 60%),
-        rgba(0,0,0,.08);
-    }
+    .envBack{position:absolute; inset:0; background: rgba(0,0,0,.10);}
     .envBody{
       position:absolute; inset:0;
       clip-path: polygon(0 35%, 50% 70%, 100% 35%, 100% 100%, 0 100%);
@@ -179,222 +198,186 @@
     .envFlap{
       position:absolute; inset:0;
       clip-path: polygon(0 35%, 50% 0, 100% 35%, 50% 72%);
-      background: linear-gradient(180deg, rgba(255,77,141,.25), rgba(124,92,255,.18));
+      background: linear-gradient(180deg, rgba(255,77,141,.22), rgba(124,92,255,.18));
       transform-origin: 50% 35%;
       transform: rotateX(0deg);
       transition: transform 900ms cubic-bezier(.2,.8,.2,1);
       border-bottom:1px solid rgba(255,255,255,.12);
     }
     .seal{
-      position:absolute;
-      left:50%; top:53%;
+      position:absolute; left:50%; top:53%;
       transform: translate(-50%,-50%);
-      width:58px; height:58px;
-      border-radius:999px;
+      width:58px; height:58px; border-radius:999px;
       background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 35%),
-                  linear-gradient(135deg, var(--accent), var(--accent2));
+                  linear-gradient(135deg, var(--pink), var(--violet));
       border:1px solid rgba(255,255,255,.22);
       display:grid; place-items:center;
-      box-shadow: 0 12px 30px rgba(255,77,141,.15);
+      cursor:pointer;
+      user-select:none;
       transition: transform 900ms cubic-bezier(.2,.8,.2,1), opacity 500ms ease;
     }
     .seal span{font-size:22px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));}
     .letter{
-      position:absolute;
-      left:50%; bottom:8%;
-      transform: translateX(-50%);
-      width:86%;
-      height:74%;
-      border-radius:14px;
-      background: rgba(255,244,251,.92);
-      color: #2a1230;
-      padding:14px 14px;
-      overflow:auto;
-      box-shadow: 0 18px 60px rgba(0,0,0,.35);
-      border:1px solid rgba(0,0,0,.08);
-
-      transform-origin: 50% 100%;
+      position:absolute; left:50%; bottom:8%;
       transform: translateX(-50%) translateY(54%);
+      width:86%; height:74%;
+      border-radius:14px;
+      background: rgba(255,246,251,.92);
+      color:#2a1230;
+      border:1px solid rgba(0,0,0,.08);
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+      padding:14px;
+      overflow:auto;
       transition: transform 900ms cubic-bezier(.2,.8,.2,1);
     }
     .letter h3{margin:0 0 6px; font-size:16px;}
-    .letter p{margin:0; font-size:13px; line-height:1.6;}
-    .letter .sign{margin-top:10px; font-weight:800;}
-
+    .letter p{margin:0; font-size:13px; line-height:1.65;}
+    .letter .sign{margin-top:10px; font-weight:900;}
     .opened .envFlap{ transform: rotateX(180deg); }
     .opened .seal{ transform: translate(-50%,-50%) scale(.92); opacity:.15; }
     .opened .letter{ transform: translateX(-50%) translateY(0%); }
 
     /* gallery */
-    .gallery{
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.12);
-      border-radius:18px;
-      padding:12px;
+    .galleryTop{display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+    .chip{
+      font-size:12px; color: rgba(255,246,251,.88);
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.10);
+      padding:8px 10px;
+      border-radius:999px;
     }
-    .mainImg{
-      width:100%;
-      aspect-ratio: 4/5;
-      object-fit:cover;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      cursor:pointer;
-    }
-    .gRow{display:flex; gap:10px; align-items:center; justify-content:space-between; margin-top:10px;}
-    .cap{color:var(--muted); font-size:12px;}
-    .nav{display:flex; gap:8px;}
-    .thumbs{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap:8px;
-      margin-top:10px;
-    }
-    @media (max-width: 920px){ .thumbs{grid-template-columns: repeat(6, 1fr);} }
-    .thumbs img{
-      width:100%;
-      aspect-ratio:1/1;
-      object-fit:cover;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      opacity:.75;
-      cursor:pointer;
-      transition:.18s ease;
-      background: rgba(255,255,255,.05);
-    }
-    .thumbs img:hover{opacity:1; transform: translateY(-1px);}
-    .thumbs img.active{opacity:1; outline:2px solid rgba(255,77,141,.55);}
 
-    /* reasons flip cards */
-    .reasons{
-      margin-top:14px;
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:10px;
+    .masonry{
+      column-count: 2;
+      column-gap: 10px;
+      margin-top:12px;
     }
-    @media (max-width: 920px){ .reasons{grid-template-columns: repeat(2,1fr);} }
-    .flip{
-      perspective: 900px;
-      min-height:110px;
-    }
-    .flipInner{
+    @media (max-width: 520px){ .masonry{column-count:1;} }
+    .ph{
+      break-inside: avoid;
+      margin:0 0 10px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      overflow:hidden;
       position:relative;
-      width:100%; height:100%;
-      transform-style:preserve-3d;
-      transition: transform 650ms cubic-bezier(.2,.8,.2,1);
-      border-radius:16px;
+      cursor:pointer;
     }
-    .flip.isFlipped .flipInner{ transform: rotateY(180deg); }
-    .face{
-      position:absolute; inset:0;
-      backface-visibility:hidden;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.12);
+    .ph img{
+      width:100%;
+      display:block;
+      object-fit:cover;
+      transform: scale(1.02);
+      transition: transform .25s ease, filter .25s ease;
+      filter: saturate(1.05) contrast(1.03);
       background: rgba(255,255,255,.06);
-      padding:12px;
-      display:flex; flex-direction:column; justify-content:center; gap:6px;
     }
-    .face b{font-size:13px;}
-    .face span{font-size:12px; color:var(--muted); line-height:1.35;}
-    .back{
-      transform: rotateY(180deg);
-      background: radial-gradient(500px 200px at 20% 10%, rgba(255,77,141,.18), transparent 55%),
-                  radial-gradient(500px 200px at 80% 10%, rgba(124,92,255,.16), transparent 55%),
-                  rgba(0,0,0,.14);
+    .ph:hover img{ transform: scale(1.05); }
+    .tag{
+      position:absolute; left:10px; top:10px;
+      font-size:12px;
+      padding:7px 9px;
+      border-radius:999px;
+      color:white;
+      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
     }
 
-    /* modal lightbox */
+    /* modal */
     .modal{
       position:fixed; inset:0;
+      display:none; place-items:center;
       background: rgba(0,0,0,.65);
-      display:none;
-      place-items:center;
-      padding:18px;
-      z-index: 50;
+      padding:16px;
+      z-index:60;
     }
     .modal.show{display:grid;}
     .modalCard{
-      width:min(960px, 96vw);
+      width:min(980px, 96vw);
       border-radius:18px;
       border:1px solid rgba(255,255,255,.18);
-      background: rgba(15,10,30,.86);
-      backdrop-filter: blur(10px);
+      background: rgba(12,8,26,.88);
+      backdrop-filter: blur(12px);
       box-shadow: var(--shadow);
       padding:12px;
-    }
-    .modalImg{
-      width:100%;
-      max-height: 78vh;
-      object-fit:contain;
-      border-radius:14px;
-      background: rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.12);
     }
     .modalTop{
       display:flex; justify-content:space-between; align-items:center; gap:10px;
       padding:6px 6px 10px;
+      color:var(--muted);
+      font-size:12px;
     }
-    .x{
+    .close{
+      border-radius:12px;
       border:1px solid rgba(255,255,255,.18);
       background: rgba(255,255,255,.10);
-      color: var(--text);
-      border-radius:12px;
+      color:var(--text);
       padding:10px 12px;
       cursor:pointer;
-      font-weight:800;
+      font-weight:850;
+    }
+    .modalImg{
+      width:100%;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
     }
 
-    /* floating hearts */
+    .hidden{display:none}
+
+    /* subtle floating hearts */
     .heart{
       position:fixed;
       bottom:-30px;
-      width:18px; height:18px;
-      background: var(--accent);
+      width:16px; height:16px;
+      background: var(--pink);
       transform: rotate(45deg);
-      opacity:.35;
+      opacity:.22;
       animation: floatUp linear forwards;
       z-index:0;
-      filter: drop-shadow(0 10px 18px rgba(255,77,141,.18));
+      pointer-events:none;
+      filter: drop-shadow(0 10px 18px rgba(255,77,141,.14));
     }
     .heart:before, .heart:after{
       content:"";
       position:absolute;
-      width:18px; height:18px;
-      background: var(--accent);
+      width:16px; height:16px;
+      background: var(--pink);
       border-radius:50%;
     }
-    .heart:before{ left:-9px; top:0;}
-    .heart:after{ left:0; top:-9px;}
-    @keyframes floatUp{
-      to { transform: translateY(-120vh) rotate(45deg); opacity:0; }
-    }
+    .heart:before{ left:-8px; top:0;}
+    .heart:after{ left:0; top:-8px;}
+    @keyframes floatUp{ to{ transform: translateY(-120vh) rotate(45deg); opacity:0; } }
 
-    /* confetti */
+    /* confetti (only when user clicks) */
     .conf{
-      position:fixed;
-      top:-12px;
+      position:fixed; top:-12px;
       width:10px; height:14px;
       opacity:.95;
       animation: drop linear forwards;
-      z-index: 40;
+      z-index: 80;
+      pointer-events:none;
     }
-    @keyframes drop{
-      to { transform: translateY(110vh) rotate(720deg); opacity:.95; }
-    }
+    @keyframes drop{ to { transform: translateY(110vh) rotate(720deg); opacity:.95; } }
 
-    .hidden{display:none}
-    .tiny{font-size:12px; color:rgba(255,244,251,.60); margin-top:10px}
-    .divider{height:1px; background:rgba(255,255,255,.10); margin:14px 0;}
-    .title2{margin:0; font-size:18px;}
+    @media (prefers-reduced-motion: reduce){
+      .aurora{animation:none}
+    }
   </style>
 </head>
+
 <body>
+  <div class="aurora"></div>
+
   <div class="wrap">
     <div class="top">
-      <div class="brand">
+      <div class="hero">
         <h1>For Ishara</h1>
         <div class="sub">
-          A birthday page that unlocks at the perfect time. When it does… there’s a letter waiting inside.
+          A private little birthday page. It stays locked until the exact time — then a letter + memories open for you.
         </div>
       </div>
       <div class="pill" id="pill">Loading…</div>
@@ -406,268 +389,208 @@
         <h2 class="title2" id="headline">Your birthday unlocks in…</h2>
 
         <div id="lockedView">
-          <div class="countWrap">
-            <div class="cd">
-              <div class="ring" aria-label="progress ring">
-                <svg width="92" height="92" viewBox="0 0 92 92">
-                  <defs>
-                    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0" stop-color="#ff4d8d"/>
-                      <stop offset="1" stop-color="#7c5cff"/>
-                    </linearGradient>
-                  </defs>
-                  <circle cx="46" cy="46" r="36" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="10"/>
-                  <circle id="prog" cx="46" cy="46" r="36" fill="none" stroke="url(#g)" stroke-linecap="round" stroke-width="10"
-                          stroke-dasharray="226.2" stroke-dashoffset="226.2"/>
-                </svg>
-                <div class="t"><b id="pct">0%</b>to unlock</div>
-              </div>
+          <div class="count">
+            <div class="ring">
+              <svg width="120" height="120" viewBox="0 0 120 120" aria-hidden="true">
+                <defs>
+                  <linearGradient id="grad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#ff4d8d"/>
+                    <stop offset="1" stop-color="#7c5cff"/>
+                  </linearGradient>
+                </defs>
+                <circle cx="60" cy="60" r="46" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="12"/>
+                <circle id="prog" cx="60" cy="60" r="46" fill="none" stroke="url(#grad)" stroke-linecap="round" stroke-width="12"
+                        stroke-dasharray="289.0" stroke-dashoffset="289.0"/>
+              </svg>
+              <div class="t"><b id="pct">0%</b>to unlock</div>
+            </div>
 
-              <div class="cdNums">
-                <div class="box"><div class="num" id="d">--</div><div class="lbl">Days</div></div>
-                <div class="box"><div class="num" id="h">--</div><div class="lbl">Hours</div></div>
-                <div class="box"><div class="num" id="m">--</div><div class="lbl">Minutes</div></div>
-                <div class="box"><div class="num" id="s">--</div><div class="lbl">Seconds</div></div>
-              </div>
+            <div class="boxes">
+              <div class="box"><div class="num" id="d">--</div><div class="lbl">Days</div></div>
+              <div class="box"><div class="num" id="h">--</div><div class="lbl">Hours</div></div>
+              <div class="box"><div class="num" id="m">--</div><div class="lbl">Minutes</div></div>
+              <div class="box"><div class="num" id="s">--</div><div class="lbl">Seconds</div></div>
             </div>
           </div>
 
           <p class="note">
-            Don’t open too early… but if you want to test it, you can preview the surprise.
+            If you want to test it now, use “Preview reveal”. (Your real unlock time still stays the same.)
           </p>
 
           <div class="row">
             <button class="secondary" id="previewBtn">Preview reveal</button>
-            <button id="copyLinkBtn">Copy link</button>
+            <button class="secondary" id="copyBtn">Copy link</button>
           </div>
 
           <div class="tiny" id="targetHint"></div>
+          <div class="tiny" id="imgStatus"></div>
         </div>
 
         <div id="unlockedView" class="hidden">
-          <p class="note" style="margin-top:6px">
-            It’s your moment. Tap the seal to open.
-          </p>
+          <p class="note">Tap the seal to open your letter.</p>
 
-          <div class="envelopeStage">
-            <div class="envelope" id="env" aria-label="envelope">
-              <div class="envBack"></div>
-              <div class="envBody"></div>
-              <div class="envFlap"></div>
-              <div class="seal" id="seal" title="Open the letter"><span>❤</span></div>
+          <div class="envelope" id="env">
+            <div class="envBack"></div>
+            <div class="envBody"></div>
+            <div class="envFlap"></div>
 
-              <div class="letter" id="letter">
-                <h3>Happy Birthday, Ishara</h3>
-                <p id="letterText">
-                  Today I just want you to feel loved in the softest way.
-                  <br><br>
-                  You are beautiful, strong, and precious to me — and I’m grateful for you more than I can ever say in one message.
-                  <br><br>
-                  I hope this year brings you peaceful days, bright wins, and a heart that feels safe and full.
-                  <br><br>
-                  Always yours,
-                  <span class="sign" id="fromName">—</span>
-                </p>
-              </div>
+            <div class="seal" id="seal" title="Open the letter"><span>❤</span></div>
+
+            <div class="letter" id="letter">
+              <h3>Happy Birthday, Ishara</h3>
+              <p id="typed"></p>
+              <p class="sign" id="sign"></p>
             </div>
+          </div>
 
-            <div class="row" style="justify-content:center">
-              <button id="confettiBtn">Celebrate</button>
-              <button class="secondary" id="showReasonsBtn">Open “Reasons”</button>
-            </div>
-
-            <div id="reasonsBlock" class="hidden">
-              <div class="divider"></div>
-              <h3 style="margin:0 0 10px; font-size:16px;">7 little reasons you’re my favorite</h3>
-              <div class="reasons" id="reasons"></div>
-              <div class="tiny">Tap any card to flip it.</div>
-            </div>
+          <div class="row" style="justify-content:center">
+            <button id="celebrateBtn">Celebrate</button>
+            <button class="secondary" id="openEnvBtn">Open / Close</button>
           </div>
         </div>
       </section>
 
       <!-- RIGHT -->
       <aside class="panel">
-        <h2 class="title2" style="margin-bottom:10px;">Our photos</h2>
-
-        <div class="gallery">
-          <img id="mainImg" class="mainImg" alt="Photo" />
-          <div class="gRow">
-            <div class="cap" id="cap">Tap the photo to view full screen</div>
-            <div class="nav">
-              <button class="secondary" id="prevBtn">Prev</button>
-              <button class="secondary" id="nextBtn">Next</button>
-            </div>
-          </div>
-          <div class="thumbs" id="thumbs"></div>
-          <div class="tiny" id="imgDebug"></div>
+        <div class="galleryTop">
+          <h2 class="title2" style="margin:0;">Memories</h2>
+          <div class="chip">Tap any photo to view full screen</div>
         </div>
+
+        <div class="masonry" id="masonry"></div>
+        <div class="tiny">If photos still don’t appear, your files are not at <b>/images/1.jpeg</b> etc.</div>
       </aside>
     </div>
   </div>
 
-  <!-- lightbox -->
+  <!-- modal -->
   <div class="modal" id="modal">
     <div class="modalCard">
       <div class="modalTop">
-        <div class="cap" id="modalCap">Photo</div>
-        <button class="x" id="closeModal">Close</button>
+        <div id="modalCap">Photo</div>
+        <button class="close" id="closeModal">Close</button>
       </div>
-      <img id="modalImg" class="modalImg" alt="Full photo" />
+      <img id="modalImg" class="modalImg" alt="Full photo"/>
     </div>
   </div>
 
 <script>
-  /************ CUSTOMIZE ************/
+  /************ SETTINGS ************/
   const TARGET = "2026-04-13T23:59:00+05:30";
-  const FROM_NAME = "Your love"; // <-- change this
+  const FROM_NAME = "Your LOVE";     // change this
+  const PHOTO_COUNT = 7;         // you have 7 photos
+  const EXTENSIONS = ["jpeg","jpg","png","webp"]; // auto fallback
   /**********************************/
 
-  // IMPORTANT: use ./images/... (more reliable on GitHub Pages)
-  const photos = [
-    "./images/1.jpeg",
-    "./images/2.jpeg",
-    "./images/3.jpeg",
-    "./images/4.jpeg",
-    "./images/5.jpeg",
-    "./images/6.jpeg",
-    "./images/7.jpeg",
-  ];
-
-  // Reasons (edit these to match your relationship)
-  const reasons = [
-    ["Your smile", "It makes everything feel lighter."],
-    ["Your heart", "You care in a way that’s rare."],
-    ["Your strength", "You handle life with so much courage."],
-    ["Your vibe", "Being with you feels like home."],
-    ["Your laugh", "It’s my favorite sound."],
-    ["Your beauty", "Inside and out — effortlessly."],
-    ["You", "Simply you. That’s the reason."],
-  ];
-
-  // UI refs
   const pill = document.getElementById("pill");
   const lockedView = document.getElementById("lockedView");
   const unlockedView = document.getElementById("unlockedView");
   const headline = document.getElementById("headline");
   const targetHint = document.getElementById("targetHint");
-  const fromName = document.getElementById("fromName");
+  const imgStatus = document.getElementById("imgStatus");
+
+  const env = document.getElementById("env");
+  const seal = document.getElementById("seal");
+  const openEnvBtn = document.getElementById("openEnvBtn");
+  const celebrateBtn = document.getElementById("celebrateBtn");
+
   const prog = document.getElementById("prog");
   const pct = document.getElementById("pct");
-  const CIRC = 2 * Math.PI * 36; // approx 226.2
+  const CIRC = 2 * Math.PI * 46; // about 289
 
   const targetDate = new Date(TARGET);
-  fromName.textContent = "— " + FROM_NAME;
   targetHint.textContent = "Unlock time: " + targetDate.toString();
 
-  // Hearts background
+  // Background hearts (subtle)
   function spawnHeart(){
     const h = document.createElement("div");
     h.className = "heart";
-    const size = 10 + Math.random()*18;
+    const size = 10 + Math.random()*14;
     h.style.width = size + "px";
     h.style.height = size + "px";
     h.style.left = (Math.random()*100) + "vw";
     h.style.animationDuration = (7 + Math.random()*7) + "s";
-    h.style.opacity = (0.18 + Math.random()*0.35);
+    h.style.opacity = (0.14 + Math.random()*0.20);
     document.body.appendChild(h);
     setTimeout(()=>h.remove(), 16000);
   }
   if (!matchMedia("(prefers-reduced-motion: reduce)").matches){
-    setInterval(spawnHeart, 520);
+    setInterval(spawnHeart, 650);
   }
 
-  // Confetti
-  function confettiBurst(count=160){
-    const colors = ["#ff4d8d","#7c5cff","#ffd166","#06d6a0","#fff4fb"];
+  // Confetti only on click (not auto, so it won't be messy)
+  function confettiBurst(count=140){
+    const colors = ["#ff4d8d","#7c5cff","#ffd166","#06d6a0","#fff6fb"];
     for(let i=0;i<count;i++){
       const c = document.createElement("div");
       c.className = "conf";
       c.style.left = Math.random()*100 + "vw";
       c.style.background = colors[Math.floor(Math.random()*colors.length)];
       c.style.width = (6 + Math.random()*10) + "px";
-      c.style.height = (10 + Math.random()*16) + "px";
-      c.style.animationDuration = (2.8 + Math.random()*2.8) + "s";
+      c.style.height = (10 + Math.random()*14) + "px";
+      c.style.animationDuration = (2.8 + Math.random()*2.6) + "s";
       c.style.animationDelay = (Math.random()*0.25) + "s";
       document.body.appendChild(c);
       setTimeout(()=>c.remove(), 6500);
     }
   }
-  document.getElementById("confettiBtn").onclick = ()=> confettiBurst(200);
+  celebrateBtn.onclick = ()=> confettiBurst(180);
 
-  // Envelope open
-  const env = document.getElementById("env");
-  document.getElementById("seal").onclick = ()=> env.classList.toggle("opened");
+  // Envelope open/close
+  function toggleEnv(){ env.classList.toggle("opened"); }
+  seal.onclick = toggleEnv;
+  openEnvBtn.onclick = toggleEnv;
 
-  // Reasons cards
-  const reasonsEl = document.getElementById("reasons");
-  reasons.forEach((r, idx)=>{
-    const card = document.createElement("div");
-    card.className = "flip";
-    card.innerHTML = `
-      <div class="flipInner">
-        <div class="face front">
-          <b>${idx+1}. Tap to open</b>
-          <span>${r[0]}</span>
-        </div>
-        <div class="face back">
-          <b>${r[0]}</b>
-          <span>${r[1]}</span>
-        </div>
-      </div>`;
-    card.onclick = ()=> card.classList.toggle("isFlipped");
-    reasonsEl.appendChild(card);
-  });
-  const reasonsBlock = document.getElementById("reasonsBlock");
-  document.getElementById("showReasonsBtn").onclick = ()=> reasonsBlock.classList.toggle("hidden");
+  // Typewriter letter
+  const typed = document.getElementById("typed");
+  const sign = document.getElementById("sign");
+  const letterText =
+`Today is yours — and I hope it feels soft, beautiful, and full of the kind of happiness you deserve.
 
-  // Copy link button
-  document.getElementById("copyLinkBtn").onclick = async ()=>{
-    try{
-      await navigator.clipboard.writeText(location.href);
-      pill.textContent = "Link copied";
-      setTimeout(()=> pill.textContent = pill.dataset.state || pill.textContent, 1200);
-    }catch(e){
-      alert("Copy failed. Just copy from the address bar.");
-    }
-  };
+Thank you for being you — for your kindness, your smile, and the way you make even ordinary moments feel special.
 
-  // Preview reveal
-  document.getElementById("previewBtn").onclick = ()=>{
-    const url = new URL(location.href);
-    url.searchParams.set("preview","1");
-    location.href = url.toString();
-  };
+May this year bring you calm wins, warm love, and a heart that feels safe and full.
+
+Happy Birthday, Ishara.`;
+  sign.textContent = "— " + FROM_NAME;
+
+  function typeIt(text, speed=18){
+    typed.textContent = "";
+    let i = 0;
+    const timer = setInterval(()=>{
+      typed.textContent += text[i] ?? "";
+      i++;
+      if(i >= text.length) clearInterval(timer);
+    }, speed);
+  }
+
+  // Countdown / unlock view
+  const start = Date.now();
+  const totalSpan = Math.max(1, targetDate.getTime() - start);
 
   function showLocked(){
     lockedView.classList.remove("hidden");
     unlockedView.classList.add("hidden");
     headline.textContent = "Your birthday unlocks in…";
     pill.textContent = "Locked";
-    pill.dataset.state = "Locked";
   }
   function showUnlocked(){
     lockedView.classList.add("hidden");
     unlockedView.classList.remove("hidden");
     headline.textContent = "Happy Birthday, Ishara";
     pill.textContent = "Unlocked";
-    pill.dataset.state = "Unlocked";
+    typeIt(letterText, 16);
   }
-
-  // Countdown + progress
-  const start = Date.now(); // used only for progress smoothing
-  const totalSpan = Math.max(1, targetDate.getTime() - start);
 
   function tick(){
     const url = new URL(location.href);
-    const forcePreview = url.searchParams.get("preview")==="1";
+    const preview = url.searchParams.get("preview") === "1";
 
     const now = new Date();
     const diff = targetDate - now;
 
-    if (diff <= 0 || forcePreview){
+    if(diff <= 0 || preview){
       showUnlocked();
-      // set ring complete
       prog.style.strokeDasharray = CIRC.toFixed(1);
       prog.style.strokeDashoffset = "0";
       pct.textContent = "100%";
@@ -687,7 +610,6 @@
     document.getElementById("m").textContent = String(mins).padStart(2,"0");
     document.getElementById("s").textContent = String(secs).padStart(2,"0");
 
-    // progress from 0..100 (time elapsed since page opened vs total until target at open time)
     const elapsed = Math.min(totalSpan, Math.max(0, Date.now() - start));
     const p = Math.min(99.9, (elapsed/totalSpan)*100);
     pct.textContent = Math.floor(p) + "%";
@@ -698,66 +620,85 @@
   setInterval(tick, 250);
   tick();
 
-  // Gallery + lightbox
-  const mainImg = document.getElementById("mainImg");
-  const thumbs = document.getElementById("thumbs");
-  const cap = document.getElementById("cap");
-  const imgDebug = document.getElementById("imgDebug");
-  let current = 0;
+  // Link buttons
+  document.getElementById("previewBtn").onclick = ()=>{
+    const url = new URL(location.href);
+    url.searchParams.set("preview","1");
+    location.href = url.toString();
+  };
+  document.getElementById("copyBtn").onclick = async ()=>{
+    try{
+      await navigator.clipboard.writeText(location.href);
+      pill.textContent = "Link copied";
+      setTimeout(()=>pill.textContent="Locked", 1000);
+    }catch{
+      alert("Copy failed—copy from the address bar.");
+    }
+  };
 
-  function setActive(i){
-    current = (i + photos.length) % photos.length;
-    const src = photos[current];
-
-    mainImg.src = src;
-    cap.textContent = `Photo ${current+1} of ${photos.length} (tap to full screen)`;
-
-    [...thumbs.querySelectorAll("img")].forEach((t, idx)=>{
-      t.classList.toggle("active", idx===current);
+  // Robust image resolver: tries ./images/N.jpeg then jpg/png/webp
+  function tryLoad(src){
+    return new Promise((resolve, reject)=>{
+      const img = new Image();
+      img.onload = ()=> resolve(src);
+      img.onerror = ()=> reject(new Error("fail"));
+      img.src = src + "?v=" + Date.now(); // cache-bust while testing
     });
   }
 
-  // Add thumbs
-  photos.forEach((src, idx)=>{
-    const im = document.createElement("img");
-    im.src = src;
-    im.alt = "Photo " + (idx+1);
-    im.loading = "lazy";
-    im.onclick = ()=> setActive(idx);
-    im.onerror = ()=>{
-      imgDebug.textContent =
-        "Image not found: " + src +
-        " | Check your repo has /images/1.jpg etc (case-sensitive).";
-    };
-    thumbs.appendChild(im);
-  });
+  async function resolvePhoto(n){
+    for(const ext of EXTENSIONS){
+      const src = `./images/${n}.${ext}`;
+      try{
+        await tryLoad(src);
+        return src;
+      }catch(e){}
+    }
+    return null;
+  }
 
-  mainImg.onerror = ()=>{
-    imgDebug.textContent =
-      "Main image not found: " + photos[current] +
-      " | Check file names and extensions (.jpg/.jpeg/.png).";
-  };
-
-  // Next/Prev
-  document.getElementById("prevBtn").onclick = ()=> setActive(current-1);
-  document.getElementById("nextBtn").onclick = ()=> setActive(current+1);
-
-  // Modal
+  // Build masonry gallery
+  const masonry = document.getElementById("masonry");
   const modal = document.getElementById("modal");
   const modalImg = document.getElementById("modalImg");
   const modalCap = document.getElementById("modalCap");
-  function openModal(){
-    modal.classList.add("show");
-    modalImg.src = photos[current];
-    modalCap.textContent = `Photo ${current+1} of ${photos.length}`;
-  }
-  function closeModal(){ modal.classList.remove("show"); }
-  mainImg.onclick = openModal;
-  document.getElementById("closeModal").onclick = closeModal;
-  modal.onclick = (e)=>{ if(e.target===modal) closeModal(); };
+  document.getElementById("closeModal").onclick = ()=> modal.classList.remove("show");
+  modal.onclick = (e)=>{ if(e.target === modal) modal.classList.remove("show"); };
 
-  // init
-  setActive(0);
+  (async function buildGallery(){
+    let ok = 0;
+    let missing = [];
+
+    for(let i=1; i<=PHOTO_COUNT; i++){
+      const src = await resolvePhoto(i);
+
+      const card = document.createElement("div");
+      card.className = "ph";
+      card.innerHTML = `<div class="tag">#${i}</div><img alt="Photo ${i}"/>`;
+      const img = card.querySelector("img");
+
+      if(src){
+        ok++;
+        img.src = src;
+        card.onclick = ()=>{
+          modalImg.src = src;
+          modalCap.textContent = `Photo ${i}`;
+          modal.classList.add("show");
+        };
+      }else{
+        missing.push(i);
+        img.alt = `Missing: ${i}`;
+        img.style.height = "220px";
+        img.style.background = "rgba(255,255,255,.06)";
+      }
+
+      masonry.appendChild(card);
+    }
+
+    imgStatus.textContent = (missing.length === 0)
+      ? `Photos loaded: ${ok}/${PHOTO_COUNT} ✅`
+      : `Photos loaded: ${ok}/${PHOTO_COUNT}. Missing: ${missing.join(", ")} (check /images filenames).`;
+  })();
 </script>
 </body>
 </html>
