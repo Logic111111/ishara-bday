@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>For Ishara</title>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#1b1b3a;
+      --card: rgba(255,255,255,.08);
+      --border: rgba(255,255,255,.14);
+      --text:#f6f2ff;
+      --muted: rgba(246,242,255,.75);
+      --accent:#ff4d8d;
+      --accent2:#7c5cff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      color:var(--text);
+      min-height:100svh;
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(255,77,141,.35), transparent 60%),
+        radial-gradient(900px 500px at 85% 25%, rgba(124,92,255,.35), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+    .wrap{ width:min(920px, 92vw); margin:0 auto; padding:22px 0 42px; }
+    .card{
+      background: var(--card);
+      border:1px solid var(--border);
+      border-radius:22px;
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
+      padding:20px;
+      backdrop-filter: blur(10px);
+    }
+    header{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      margin-bottom:14px;
+    }
+    .title{
+      display:flex; flex-direction:column; gap:4px;
+    }
+    h1{margin:0; font-size:22px; letter-spacing:.2px;}
+    .sub{color:var(--muted); font-size:13px;}
+    .pill{
+      font-size:12px; color:var(--text);
+      border:1px solid var(--border);
+      padding:8px 10px; border-radius:999px;
+      background: rgba(0,0,0,.12);
+      white-space:nowrap;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    @media (max-width: 860px){ .grid{grid-template-columns:1fr; } }
+
+    /* Countdown */
+    .countdown{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;
+    }
+    .cdBox{
+      flex:1 1 120px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.12);
+      border-radius:18px;
+      padding:14px;
+      text-align:center;
+    }
+    .num{font-size:28px; font-weight:800;}
+    .lbl{font-size:12px; color:var(--muted); margin-top:2px;}
+
+    button{
+      border:0;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:750;
+      cursor:pointer;
+      color:white;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 30px rgba(255,77,141,.18);
+    }
+    button.secondary{
+      background: rgba(255,255,255,.10);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
+
+    /* Reveal area */
+    .hidden{display:none}
+    .revealTitle{
+      font-size:18px; margin:0 0 10px;
+    }
+    .loveNote{
+      margin:0;
+      line-height:1.65;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .signature{
+      margin-top:10px;
+      color: rgba(246,242,255,.9);
+      font-weight:700;
+    }
+
+    /* Gallery */
+    .gallery{
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.12);
+      border-radius:18px;
+      padding:12px;
+    }
+    .mainImg{
+      width:100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+    }
+    .thumbs{
+      display:grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap:8px;
+      margin-top:10px;
+    }
+    @media (max-width: 860px){ .thumbs{grid-template-columns: repeat(5, 1fr);} }
+    .thumbs img{
+      width:100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius:12px;
+      opacity:.78;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.10);
+      transition:.2s ease;
+    }
+    .thumbs img.active{opacity:1; outline:2px solid rgba(255,77,141,.55);}
+    .thumbs img:hover{opacity:1; transform: translateY(-1px);}
+
+    /* Floating hearts */
+    .heart{
+      position:fixed;
+      bottom:-30px;
+      width:18px; height:18px;
+      background: var(--accent);
+      transform: rotate(45deg);
+      opacity:.8;
+      animation: floatUp linear forwards;
+      z-index:0;
+      filter: drop-shadow(0 10px 20px rgba(255,77,141,.22));
+    }
+    .heart:before, .heart:after{
+      content:"";
+      position:absolute;
+      width:18px; height:18px;
+      background: var(--accent);
+      border-radius:50%;
+    }
+    .heart:before{ left:-9px; top:0;}
+    .heart:after{ left:0; top:-9px;}
+    @keyframes floatUp{
+      to { transform: translateY(-120vh) rotate(45deg); opacity:0; }
+    }
+
+    /* Confetti (simple) */
+    .confetti{
+      position:fixed;
+      top:-10px;
+      width:10px; height:14px;
+      opacity:.9;
+      animation: drop linear forwards;
+      z-index: 3;
+    }
+    @keyframes drop{
+      to { transform: translateY(110vh) rotate(540deg); opacity:0.9; }
+    }
+
+    .tiny{font-size:12px; color:rgba(246,242,255,.62); margin-top:10px;}
+    .divider{height:1px; background:rgba(255,255,255,.10); margin:14px 0;}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" style="position:relative; z-index:1;">
+      <header>
+        <div class="title">
+          <h1>For Ishara</h1>
+          <div class="sub">A small birthday surprise — made with love.</div>
+        </div>
+        <div class="pill" id="statusPill">Loading…</div>
+      </header>
+
+      <div class="grid">
+        <!-- LEFT -->
+        <section>
+          <!-- COUNTDOWN VIEW -->
+          <div id="countdownView">
+            <h2 class="revealTitle" style="margin:0;">Your birthday unlocks in…</h2>
+            <div class="countdown" aria-label="countdown">
+              <div class="cdBox"><div class="num" id="d">--</div><div class="lbl">Days</div></div>
+              <div class="cdBox"><div class="num" id="h">--</div><div class="lbl">Hours</div></div>
+              <div class="cdBox"><div class="num" id="m">--</div><div class="lbl">Minutes</div></div>
+              <div class="cdBox"><div class="num" id="s">--</div><div class="lbl">Seconds</div></div>
+            </div>
+
+            <div class="row">
+              <button class="secondary" id="previewBtn" title="If you want to test the reveal now">Preview reveal</button>
+              <button id="shareHintBtn">How to share as a link</button>
+            </div>
+
+            <div class="tiny" id="targetHint"></div>
+          </div>
+
+          <!-- REVEAL VIEW -->
+          <div id="revealView" class="hidden">
+            <h2 class="revealTitle">Happy Birthday, Ishara</h2>
+            <p class="loveNote">
+              Today is yours — and I hope it feels soft, beautiful, and full of the kind of happiness you deserve.
+              <br><br>
+              Thank you for being you — for your kindness, your smile, and the way you make ordinary moments feel special.
+              I’m always cheering for you… and I’m always with you.
+              <br><br>
+              I love you, today and every day after this.
+            </p>
+            <div class="signature" id="sig">— From: </div>
+
+            <div class="divider"></div>
+
+            <div class="row">
+              <button id="confettiBtn">Celebrate</button>
+              <button class="secondary" id="nextPhotoBtn">Next photo</button>
+            </div>
+
+            <div class="tiny">Tip: Tap any small photo on the right to view it bigger.</div>
+          </div>
+        </section>
+
+        <!-- RIGHT (GALLERY) -->
+        <aside class="gallery">
+          <img id="mainImg" class="mainImg" alt="Photo" />
+          <div class="thumbs" id="thumbs"></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+<script>
+  /************ CUSTOMIZE THESE 2 LINES ************/
+  const TARGET = "2026-04-13T23:59:00+05:30"; // <-- CHANGE to Ishara's birthday time (with your timezone)
+  const FROM_NAME = "Your love";             // <-- CHANGE to your name
+  /*************************************************/
+
+  const photos = [
+    "images/1.jpg",
+    "images/2.jpg",
+    "images/3.jpg",
+    "images/4.jpg",
+    "images/5.jpg",
+    "images/6.jpg",
+    "images/7.jpg",
+  ];
+
+  const targetDate = new Date(TARGET);
+  const pill = document.getElementById("statusPill");
+  const countdownView = document.getElementById("countdownView");
+  const revealView = document.getElementById("revealView");
+  const sig = document.getElementById("sig");
+  const targetHint = document.getElementById("targetHint");
+
+  sig.textContent = "— From: " + FROM_NAME;
+  targetHint.textContent = "Unlock time: " + targetDate.toString();
+
+  // Simple hearts background
+  function spawnHeart(){
+    const h = document.createElement("div");
+    h.className = "heart";
+    const size = 10 + Math.random()*16;
+    h.style.width = size + "px";
+    h.style.height = size + "px";
+    h.style.left = (Math.random()*100) + "vw";
+    h.style.animationDuration = (7 + Math.random()*6) + "s";
+    h.style.opacity = (0.35 + Math.random()*0.55);
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 14000);
+  }
+  setInterval(spawnHeart, 550);
+
+  // Gallery
+  const mainImg = document.getElementById("mainImg");
+  const thumbs = document.getElementById("thumbs");
+  let current = 0;
+
+  function setMain(i){
+    current = (i + photos.length) % photos.length;
+    mainImg.src = photos[current];
+    [...thumbs.querySelectorAll("img")].forEach((t, idx)=>{
+      t.classList.toggle("active", idx === current);
+    });
+  }
+
+  photos.forEach((src, idx)=>{
+    const im = document.createElement("img");
+    im.src = src;
+    im.alt = "Photo " + (idx+1);
+    im.loading = "lazy";
+    im.onclick = ()=> setMain(idx);
+    thumbs.appendChild(im);
+  });
+  setMain(0);
+
+  document.getElementById("nextPhotoBtn").onclick = ()=> setMain(current+1);
+
+  // Confetti
+  function confettiBurst(count=120){
+    const colors = ["#ff4d8d","#7c5cff","#ffd166","#06d6a0","#f6f2ff"];
+    for(let i=0;i<count;i++){
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.left = Math.random()*100 + "vw";
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.width = (6 + Math.random()*10) + "px";
+      c.style.height = (10 + Math.random()*16) + "px";
+      c.style.animationDuration = (2.8 + Math.random()*2.8) + "s";
+      c.style.animationDelay = (Math.random()*0.35) + "s";
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(), 6500);
+    }
+  }
+  document.getElementById("confettiBtn").onclick = ()=> confettiBurst(150);
+
+  function showCountdown(){
+    countdownView.classList.remove("hidden");
+    revealView.classList.add("hidden");
+    pill.textContent = "Locked";
+  }
+  function showReveal(){
+    countdownView.classList.add("hidden");
+    revealView.classList.remove("hidden");
+    pill.textContent = "Unlocked";
+    confettiBurst(160);
+  }
+
+  // Countdown logic
+  function tick(){
+    const now = new Date();
+    const diff = targetDate - now;
+
+    // Allow preview with URL param ?preview=1
+    const url = new URL(location.href);
+    const forcePreview = url.searchParams.get("preview") === "1";
+
+    if(diff <= 0 || forcePreview){
+      showReveal();
+      return;
+    }
+
+    showCountdown();
+    const total = Math.floor(diff/1000);
+    const days = Math.floor(total / (3600*24));
+    const hours = Math.floor((total % (3600*24)) / 3600);
+    const mins = Math.floor((total % 3600) / 60);
+    const secs = total % 60;
+
+    document.getElementById("d").textContent = String(days).padStart(2,"0");
+    document.getElementById("h").textContent = String(hours).padStart(2,"0");
+    document.getElementById("m").textContent = String(mins).padStart(2,"0");
+    document.getElementById("s").textContent = String(secs).padStart(2,"0");
+  }
+  setInterval(tick, 250);
+  tick();
+
+  // Buttons
+  document.getElementById("previewBtn").onclick = ()=>{
+    const url = new URL(location.href);
+    url.searchParams.set("preview","1");
+    location.href = url.toString();
+  };
+
+  document.getElementById("shareHintBtn").onclick = ()=>{
+    alert(
+`To share as a link:
+1) Upload this folder to GitHub (or Netlify)
+2) Enable GitHub Pages (Settings → Pages)
+3) Send her the link
+Optional: generate a QR code from the link`
+    );
+  };
+</script>
+</body>
+</html>
