@@ -4,82 +4,92 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>For Ishara</title>
+  <meta name="theme-color" content="#120a22" />
   <style>
     :root{
-      --bg1:#0b1020;
-      --bg2:#1b1b3a;
+      --bg0:#0b0720;
+      --bg1:#120a22;
+      --bg2:#08122a;
       --card: rgba(255,255,255,.08);
       --border: rgba(255,255,255,.14);
-      --text:#f6f2ff;
-      --muted: rgba(246,242,255,.75);
+      --text:#fff4fb;
+      --muted: rgba(255,244,251,.72);
       --accent:#ff4d8d;
       --accent2:#7c5cff;
+      --gold:#ffd166;
+      --shadow: 0 24px 90px rgba(0,0,0,.5);
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      font-family: ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
       color:var(--text);
-      min-height:100svh;
       background:
-        radial-gradient(900px 500px at 15% 10%, rgba(255,77,141,.35), transparent 60%),
-        radial-gradient(900px 500px at 85% 25%, rgba(124,92,255,.35), transparent 60%),
-        linear-gradient(180deg, var(--bg1), var(--bg2));
+        radial-gradient(900px 550px at 18% 12%, rgba(255,77,141,.28), transparent 60%),
+        radial-gradient(900px 550px at 80% 20%, rgba(124,92,255,.25), transparent 62%),
+        radial-gradient(900px 650px at 55% 110%, rgba(255,209,102,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg2));
       overflow-x:hidden;
     }
-    .wrap{ width:min(920px, 92vw); margin:0 auto; padding:22px 0 42px; }
-    .card{
-      background: var(--card);
-      border:1px solid var(--border);
-      border-radius:22px;
-      box-shadow: 0 22px 70px rgba(0,0,0,.45);
-      padding:20px;
-      backdrop-filter: blur(10px);
-    }
-    header{
-      display:flex; gap:14px; align-items:center; justify-content:space-between;
+
+    /* layout */
+    .wrap{width:min(1050px, 92vw); margin:0 auto; padding:26px 0 60px; position:relative; z-index:1;}
+    .top{
+      display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap;
       margin-bottom:14px;
     }
-    .title{
-      display:flex; flex-direction:column; gap:4px;
-    }
-    h1{margin:0; font-size:22px; letter-spacing:.2px;}
-    .sub{color:var(--muted); font-size:13px;}
-    .pill{
-      font-size:12px; color:var(--text);
+    .brand{
+      background: rgba(0,0,0,.10);
       border:1px solid var(--border);
-      padding:8px 10px; border-radius:999px;
-      background: rgba(0,0,0,.12);
-      white-space:nowrap;
+      border-radius:18px;
+      padding:14px 16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      flex: 1 1 520px;
+      min-width: 280px;
     }
+    h1{margin:0; font-size:26px; letter-spacing:.2px;}
+    .sub{margin-top:6px; color:var(--muted); font-size:13px; line-height:1.45}
+    .pill{
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.12);
+      border-radius:999px;
+      padding:10px 12px;
+      font-size:12px;
+      color: rgba(255,244,251,.9);
+      white-space:nowrap;
+      height: fit-content;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .panel{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      border-radius:22px;
+      padding:16px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
     .grid{
+      margin-top:14px;
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
+      grid-template-columns: 1.05fr .95fr;
       gap:14px;
     }
-    @media (max-width: 860px){ .grid{grid-template-columns:1fr; } }
-
-    /* Countdown */
-    .countdown{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;
+    @media (max-width: 920px){
+      .grid{grid-template-columns: 1fr;}
     }
-    .cdBox{
-      flex:1 1 120px;
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.12);
-      border-radius:18px;
-      padding:14px;
-      text-align:center;
-    }
-    .num{font-size:28px; font-weight:800;}
-    .lbl{font-size:12px; color:var(--muted); margin-top:2px;}
 
+    /* buttons */
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
     button{
-      border:0;
+      border:0; cursor:pointer;
       padding:12px 14px;
       border-radius:14px;
-      font-weight:750;
-      cursor:pointer;
+      font-weight:780;
       color:white;
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       box-shadow: 0 10px 30px rgba(255,77,141,.18);
@@ -89,26 +99,133 @@
       border:1px solid var(--border);
       box-shadow:none;
     }
-    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
 
-    /* Reveal area */
-    .hidden{display:none}
-    .revealTitle{
-      font-size:18px; margin:0 0 10px;
+    /* countdown */
+    .countWrap{display:flex; gap:12px; flex-wrap:wrap; align-items:stretch; margin-top:10px;}
+    .cd{
+      flex: 1 1 230px;
+      border:1px solid var(--border);
+      background: rgba(0,0,0,.12);
+      border-radius:18px;
+      padding:14px;
+      display:flex;
+      gap:12px;
+      align-items:center;
     }
-    .loveNote{
-      margin:0;
-      line-height:1.65;
-      color:var(--muted);
-      font-size:14px;
+    .cdNums{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+      width:100%;
     }
-    .signature{
-      margin-top:10px;
-      color: rgba(246,242,255,.9);
-      font-weight:700;
+    .box{
+      text-align:center;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      border-radius:14px;
+      padding:10px 8px;
     }
+    .num{font-size:22px; font-weight:900;}
+    .lbl{font-size:11px; color:var(--muted); margin-top:2px}
 
-    /* Gallery */
+    /* heart progress ring */
+    .ring{
+      width:92px; height:92px; flex:0 0 92px;
+      display:grid; place-items:center;
+      position:relative;
+    }
+    .ring svg{transform: rotate(-90deg);}
+    .ring .t{
+      position:absolute;
+      font-size:12px;
+      color: rgba(255,244,251,.9);
+      text-align:center;
+      line-height:1.2;
+    }
+    .ring .t b{display:block; font-size:13px;}
+    .note{color:var(--muted); font-size:13px; line-height:1.55; margin:10px 0 0}
+
+    /* envelope */
+    .envelopeStage{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    .envelope{
+      width:min(420px, 100%);
+      margin:6px auto 0;
+      position:relative;
+      aspect-ratio: 16 / 10;
+      border-radius:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow: 0 20px 70px rgba(0,0,0,.45);
+      overflow:hidden;
+    }
+    .envBack{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(700px 220px at 30% 10%, rgba(255,77,141,.22), transparent 60%),
+        radial-gradient(700px 220px at 80% 10%, rgba(124,92,255,.22), transparent 60%),
+        rgba(0,0,0,.08);
+    }
+    .envBody{
+      position:absolute; inset:0;
+      clip-path: polygon(0 35%, 50% 70%, 100% 35%, 100% 100%, 0 100%);
+      background: rgba(0,0,0,.18);
+      border-top:1px solid rgba(255,255,255,.12);
+    }
+    .envFlap{
+      position:absolute; inset:0;
+      clip-path: polygon(0 35%, 50% 0, 100% 35%, 50% 72%);
+      background: linear-gradient(180deg, rgba(255,77,141,.25), rgba(124,92,255,.18));
+      transform-origin: 50% 35%;
+      transform: rotateX(0deg);
+      transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+    .seal{
+      position:absolute;
+      left:50%; top:53%;
+      transform: translate(-50%,-50%);
+      width:58px; height:58px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.35), transparent 35%),
+                  linear-gradient(135deg, var(--accent), var(--accent2));
+      border:1px solid rgba(255,255,255,.22);
+      display:grid; place-items:center;
+      box-shadow: 0 12px 30px rgba(255,77,141,.15);
+      transition: transform 900ms cubic-bezier(.2,.8,.2,1), opacity 500ms ease;
+    }
+    .seal span{font-size:22px; filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));}
+    .letter{
+      position:absolute;
+      left:50%; bottom:8%;
+      transform: translateX(-50%);
+      width:86%;
+      height:74%;
+      border-radius:14px;
+      background: rgba(255,244,251,.92);
+      color: #2a1230;
+      padding:14px 14px;
+      overflow:auto;
+      box-shadow: 0 18px 60px rgba(0,0,0,.35);
+      border:1px solid rgba(0,0,0,.08);
+
+      transform-origin: 50% 100%;
+      transform: translateX(-50%) translateY(54%);
+      transition: transform 900ms cubic-bezier(.2,.8,.2,1);
+    }
+    .letter h3{margin:0 0 6px; font-size:16px;}
+    .letter p{margin:0; font-size:13px; line-height:1.6;}
+    .letter .sign{margin-top:10px; font-weight:800;}
+
+    .opened .envFlap{ transform: rotateX(180deg); }
+    .opened .seal{ transform: translate(-50%,-50%) scale(.92); opacity:.15; }
+    .opened .letter{ transform: translateX(-50%) translateY(0%); }
+
+    /* gallery */
     .gallery{
       border:1px solid var(--border);
       background: rgba(0,0,0,.12);
@@ -117,43 +234,127 @@
     }
     .mainImg{
       width:100%;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
+      aspect-ratio: 4/5;
+      object-fit:cover;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.05);
+      cursor:pointer;
     }
+    .gRow{display:flex; gap:10px; align-items:center; justify-content:space-between; margin-top:10px;}
+    .cap{color:var(--muted); font-size:12px;}
+    .nav{display:flex; gap:8px;}
     .thumbs{
       display:grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(7, 1fr);
       gap:8px;
       margin-top:10px;
     }
-    @media (max-width: 860px){ .thumbs{grid-template-columns: repeat(5, 1fr);} }
+    @media (max-width: 920px){ .thumbs{grid-template-columns: repeat(6, 1fr);} }
     .thumbs img{
       width:100%;
-      aspect-ratio: 1/1;
-      object-fit: cover;
+      aspect-ratio:1/1;
+      object-fit:cover;
       border-radius:12px;
-      opacity:.78;
+      border:1px solid rgba(255,255,255,.12);
+      opacity:.75;
       cursor:pointer;
-      border:1px solid rgba(255,255,255,.10);
-      transition:.2s ease;
+      transition:.18s ease;
+      background: rgba(255,255,255,.05);
     }
-    .thumbs img.active{opacity:1; outline:2px solid rgba(255,77,141,.55);}
     .thumbs img:hover{opacity:1; transform: translateY(-1px);}
+    .thumbs img.active{opacity:1; outline:2px solid rgba(255,77,141,.55);}
 
-    /* Floating hearts */
+    /* reasons flip cards */
+    .reasons{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 920px){ .reasons{grid-template-columns: repeat(2,1fr);} }
+    .flip{
+      perspective: 900px;
+      min-height:110px;
+    }
+    .flipInner{
+      position:relative;
+      width:100%; height:100%;
+      transform-style:preserve-3d;
+      transition: transform 650ms cubic-bezier(.2,.8,.2,1);
+      border-radius:16px;
+    }
+    .flip.isFlipped .flipInner{ transform: rotateY(180deg); }
+    .face{
+      position:absolute; inset:0;
+      backface-visibility:hidden;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      padding:12px;
+      display:flex; flex-direction:column; justify-content:center; gap:6px;
+    }
+    .face b{font-size:13px;}
+    .face span{font-size:12px; color:var(--muted); line-height:1.35;}
+    .back{
+      transform: rotateY(180deg);
+      background: radial-gradient(500px 200px at 20% 10%, rgba(255,77,141,.18), transparent 55%),
+                  radial-gradient(500px 200px at 80% 10%, rgba(124,92,255,.16), transparent 55%),
+                  rgba(0,0,0,.14);
+    }
+
+    /* modal lightbox */
+    .modal{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.65);
+      display:none;
+      place-items:center;
+      padding:18px;
+      z-index: 50;
+    }
+    .modal.show{display:grid;}
+    .modalCard{
+      width:min(960px, 96vw);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(15,10,30,.86);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      padding:12px;
+    }
+    .modalImg{
+      width:100%;
+      max-height: 78vh;
+      object-fit:contain;
+      border-radius:14px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+    }
+    .modalTop{
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      padding:6px 6px 10px;
+    }
+    .x{
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.10);
+      color: var(--text);
+      border-radius:12px;
+      padding:10px 12px;
+      cursor:pointer;
+      font-weight:800;
+    }
+
+    /* floating hearts */
     .heart{
       position:fixed;
       bottom:-30px;
       width:18px; height:18px;
       background: var(--accent);
       transform: rotate(45deg);
-      opacity:.8;
+      opacity:.35;
       animation: floatUp linear forwards;
       z-index:0;
-      filter: drop-shadow(0 10px 20px rgba(255,77,141,.22));
+      filter: drop-shadow(0 10px 18px rgba(255,77,141,.18));
     }
     .heart:before, .heart:after{
       content:"";
@@ -168,229 +369,395 @@
       to { transform: translateY(-120vh) rotate(45deg); opacity:0; }
     }
 
-    /* Confetti (simple) */
-    .confetti{
+    /* confetti */
+    .conf{
       position:fixed;
-      top:-10px;
+      top:-12px;
       width:10px; height:14px;
-      opacity:.9;
+      opacity:.95;
       animation: drop linear forwards;
-      z-index: 3;
+      z-index: 40;
     }
     @keyframes drop{
-      to { transform: translateY(110vh) rotate(540deg); opacity:0.9; }
+      to { transform: translateY(110vh) rotate(720deg); opacity:.95; }
     }
 
-    .tiny{font-size:12px; color:rgba(246,242,255,.62); margin-top:10px;}
+    .hidden{display:none}
+    .tiny{font-size:12px; color:rgba(255,244,251,.60); margin-top:10px}
     .divider{height:1px; background:rgba(255,255,255,.10); margin:14px 0;}
+    .title2{margin:0; font-size:18px;}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card" style="position:relative; z-index:1;">
-      <header>
-        <div class="title">
-          <h1>For Ishara</h1>
-          <div class="sub">A small birthday surprise — made with love.</div>
+    <div class="top">
+      <div class="brand">
+        <h1>For Ishara</h1>
+        <div class="sub">
+          A birthday page that unlocks at the perfect time. When it does… there’s a letter waiting inside.
         </div>
-        <div class="pill" id="statusPill">Loading…</div>
-      </header>
-
-      <div class="grid">
-        <!-- LEFT -->
-        <section>
-          <!-- COUNTDOWN VIEW -->
-          <div id="countdownView">
-            <h2 class="revealTitle" style="margin:0;">Your birthday unlocks in…</h2>
-            <div class="countdown" aria-label="countdown">
-              <div class="cdBox"><div class="num" id="d">--</div><div class="lbl">Days</div></div>
-              <div class="cdBox"><div class="num" id="h">--</div><div class="lbl">Hours</div></div>
-              <div class="cdBox"><div class="num" id="m">--</div><div class="lbl">Minutes</div></div>
-              <div class="cdBox"><div class="num" id="s">--</div><div class="lbl">Seconds</div></div>
-            </div>
-
-            <div class="row">
-              <button class="secondary" id="previewBtn" title="If you want to test the reveal now">Preview reveal</button>
-              <button id="shareHintBtn">How to share as a link</button>
-            </div>
-
-            <div class="tiny" id="targetHint"></div>
-          </div>
-
-          <!-- REVEAL VIEW -->
-          <div id="revealView" class="hidden">
-            <h2 class="revealTitle">Happy Birthday, Ishara</h2>
-            <p class="loveNote">
-              Today is yours — and I hope it feels soft, beautiful, and full of the kind of happiness you deserve.
-              <br><br>
-              Thank you for being you — for your kindness, your smile, and the way you make ordinary moments feel special.
-              I’m always cheering for you… and I’m always with you.
-              <br><br>
-              I love you, today and every day after this.
-            </p>
-            <div class="signature" id="sig">— From: </div>
-
-            <div class="divider"></div>
-
-            <div class="row">
-              <button id="confettiBtn">Celebrate</button>
-              <button class="secondary" id="nextPhotoBtn">Next photo</button>
-            </div>
-
-            <div class="tiny">Tip: Tap any small photo on the right to view it bigger.</div>
-          </div>
-        </section>
-
-        <!-- RIGHT (GALLERY) -->
-        <aside class="gallery">
-          <img id="mainImg" class="mainImg" alt="Photo" />
-          <div class="thumbs" id="thumbs"></div>
-        </aside>
       </div>
+      <div class="pill" id="pill">Loading…</div>
+    </div>
+
+    <div class="grid">
+      <!-- LEFT -->
+      <section class="panel">
+        <h2 class="title2" id="headline">Your birthday unlocks in…</h2>
+
+        <div id="lockedView">
+          <div class="countWrap">
+            <div class="cd">
+              <div class="ring" aria-label="progress ring">
+                <svg width="92" height="92" viewBox="0 0 92 92">
+                  <defs>
+                    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#ff4d8d"/>
+                      <stop offset="1" stop-color="#7c5cff"/>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="46" cy="46" r="36" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="10"/>
+                  <circle id="prog" cx="46" cy="46" r="36" fill="none" stroke="url(#g)" stroke-linecap="round" stroke-width="10"
+                          stroke-dasharray="226.2" stroke-dashoffset="226.2"/>
+                </svg>
+                <div class="t"><b id="pct">0%</b>to unlock</div>
+              </div>
+
+              <div class="cdNums">
+                <div class="box"><div class="num" id="d">--</div><div class="lbl">Days</div></div>
+                <div class="box"><div class="num" id="h">--</div><div class="lbl">Hours</div></div>
+                <div class="box"><div class="num" id="m">--</div><div class="lbl">Minutes</div></div>
+                <div class="box"><div class="num" id="s">--</div><div class="lbl">Seconds</div></div>
+              </div>
+            </div>
+          </div>
+
+          <p class="note">
+            Don’t open too early… but if you want to test it, you can preview the surprise.
+          </p>
+
+          <div class="row">
+            <button class="secondary" id="previewBtn">Preview reveal</button>
+            <button id="copyLinkBtn">Copy link</button>
+          </div>
+
+          <div class="tiny" id="targetHint"></div>
+        </div>
+
+        <div id="unlockedView" class="hidden">
+          <p class="note" style="margin-top:6px">
+            It’s your moment. Tap the seal to open.
+          </p>
+
+          <div class="envelopeStage">
+            <div class="envelope" id="env" aria-label="envelope">
+              <div class="envBack"></div>
+              <div class="envBody"></div>
+              <div class="envFlap"></div>
+              <div class="seal" id="seal" title="Open the letter"><span>❤</span></div>
+
+              <div class="letter" id="letter">
+                <h3>Happy Birthday, Ishara</h3>
+                <p id="letterText">
+                  Today I just want you to feel loved in the softest way.
+                  <br><br>
+                  You are beautiful, strong, and precious to me — and I’m grateful for you more than I can ever say in one message.
+                  <br><br>
+                  I hope this year brings you peaceful days, bright wins, and a heart that feels safe and full.
+                  <br><br>
+                  Always yours,
+                  <span class="sign" id="fromName">—</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="row" style="justify-content:center">
+              <button id="confettiBtn">Celebrate</button>
+              <button class="secondary" id="showReasonsBtn">Open “Reasons”</button>
+            </div>
+
+            <div id="reasonsBlock" class="hidden">
+              <div class="divider"></div>
+              <h3 style="margin:0 0 10px; font-size:16px;">7 little reasons you’re my favorite</h3>
+              <div class="reasons" id="reasons"></div>
+              <div class="tiny">Tap any card to flip it.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT -->
+      <aside class="panel">
+        <h2 class="title2" style="margin-bottom:10px;">Our photos</h2>
+
+        <div class="gallery">
+          <img id="mainImg" class="mainImg" alt="Photo" />
+          <div class="gRow">
+            <div class="cap" id="cap">Tap the photo to view full screen</div>
+            <div class="nav">
+              <button class="secondary" id="prevBtn">Prev</button>
+              <button class="secondary" id="nextBtn">Next</button>
+            </div>
+          </div>
+          <div class="thumbs" id="thumbs"></div>
+          <div class="tiny" id="imgDebug"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <!-- lightbox -->
+  <div class="modal" id="modal">
+    <div class="modalCard">
+      <div class="modalTop">
+        <div class="cap" id="modalCap">Photo</div>
+        <button class="x" id="closeModal">Close</button>
+      </div>
+      <img id="modalImg" class="modalImg" alt="Full photo" />
     </div>
   </div>
 
 <script>
-  /************ CUSTOMIZE THESE 2 LINES ************/
-  const TARGET = "2026-04-13T23:59:00+05:30"; // <-- CHANGE to Ishara's birthday time (with your timezone)
-  const FROM_NAME = "Your love";             // <-- CHANGE to your name
-  /*************************************************/
+  /************ CUSTOMIZE ************/
+  const TARGET = "2026-04-13T23:59:00+05:30";
+  const FROM_NAME = "Your love"; // <-- change this
+  /**********************************/
 
+  // IMPORTANT: use ./images/... (more reliable on GitHub Pages)
   const photos = [
-    "images/1.jpg",
-    "images/2.jpg",
-    "images/3.jpg",
-    "images/4.jpg",
-    "images/5.jpg",
-    "images/6.jpg",
-    "images/7.jpg",
+    "./images/1.jpeg",
+    "./images/2.jpeg",
+    "./images/3.jpeg",
+    "./images/4.jpeg",
+    "./images/5.jpeg",
+    "./images/6.jpeg",
+    "./images/7.jpeg",
   ];
 
-  const targetDate = new Date(TARGET);
-  const pill = document.getElementById("statusPill");
-  const countdownView = document.getElementById("countdownView");
-  const revealView = document.getElementById("revealView");
-  const sig = document.getElementById("sig");
-  const targetHint = document.getElementById("targetHint");
+  // Reasons (edit these to match your relationship)
+  const reasons = [
+    ["Your smile", "It makes everything feel lighter."],
+    ["Your heart", "You care in a way that’s rare."],
+    ["Your strength", "You handle life with so much courage."],
+    ["Your vibe", "Being with you feels like home."],
+    ["Your laugh", "It’s my favorite sound."],
+    ["Your beauty", "Inside and out — effortlessly."],
+    ["You", "Simply you. That’s the reason."],
+  ];
 
-  sig.textContent = "— From: " + FROM_NAME;
+  // UI refs
+  const pill = document.getElementById("pill");
+  const lockedView = document.getElementById("lockedView");
+  const unlockedView = document.getElementById("unlockedView");
+  const headline = document.getElementById("headline");
+  const targetHint = document.getElementById("targetHint");
+  const fromName = document.getElementById("fromName");
+  const prog = document.getElementById("prog");
+  const pct = document.getElementById("pct");
+  const CIRC = 2 * Math.PI * 36; // approx 226.2
+
+  const targetDate = new Date(TARGET);
+  fromName.textContent = "— " + FROM_NAME;
   targetHint.textContent = "Unlock time: " + targetDate.toString();
 
-  // Simple hearts background
+  // Hearts background
   function spawnHeart(){
     const h = document.createElement("div");
     h.className = "heart";
-    const size = 10 + Math.random()*16;
+    const size = 10 + Math.random()*18;
     h.style.width = size + "px";
     h.style.height = size + "px";
     h.style.left = (Math.random()*100) + "vw";
-    h.style.animationDuration = (7 + Math.random()*6) + "s";
-    h.style.opacity = (0.35 + Math.random()*0.55);
+    h.style.animationDuration = (7 + Math.random()*7) + "s";
+    h.style.opacity = (0.18 + Math.random()*0.35);
     document.body.appendChild(h);
-    setTimeout(()=>h.remove(), 14000);
+    setTimeout(()=>h.remove(), 16000);
   }
-  setInterval(spawnHeart, 550);
-
-  // Gallery
-  const mainImg = document.getElementById("mainImg");
-  const thumbs = document.getElementById("thumbs");
-  let current = 0;
-
-  function setMain(i){
-    current = (i + photos.length) % photos.length;
-    mainImg.src = photos[current];
-    [...thumbs.querySelectorAll("img")].forEach((t, idx)=>{
-      t.classList.toggle("active", idx === current);
-    });
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches){
+    setInterval(spawnHeart, 520);
   }
-
-  photos.forEach((src, idx)=>{
-    const im = document.createElement("img");
-    im.src = src;
-    im.alt = "Photo " + (idx+1);
-    im.loading = "lazy";
-    im.onclick = ()=> setMain(idx);
-    thumbs.appendChild(im);
-  });
-  setMain(0);
-
-  document.getElementById("nextPhotoBtn").onclick = ()=> setMain(current+1);
 
   // Confetti
-  function confettiBurst(count=120){
-    const colors = ["#ff4d8d","#7c5cff","#ffd166","#06d6a0","#f6f2ff"];
+  function confettiBurst(count=160){
+    const colors = ["#ff4d8d","#7c5cff","#ffd166","#06d6a0","#fff4fb"];
     for(let i=0;i<count;i++){
       const c = document.createElement("div");
-      c.className = "confetti";
+      c.className = "conf";
       c.style.left = Math.random()*100 + "vw";
       c.style.background = colors[Math.floor(Math.random()*colors.length)];
       c.style.width = (6 + Math.random()*10) + "px";
       c.style.height = (10 + Math.random()*16) + "px";
       c.style.animationDuration = (2.8 + Math.random()*2.8) + "s";
-      c.style.animationDelay = (Math.random()*0.35) + "s";
+      c.style.animationDelay = (Math.random()*0.25) + "s";
       document.body.appendChild(c);
       setTimeout(()=>c.remove(), 6500);
     }
   }
-  document.getElementById("confettiBtn").onclick = ()=> confettiBurst(150);
+  document.getElementById("confettiBtn").onclick = ()=> confettiBurst(200);
 
-  function showCountdown(){
-    countdownView.classList.remove("hidden");
-    revealView.classList.add("hidden");
-    pill.textContent = "Locked";
-  }
-  function showReveal(){
-    countdownView.classList.add("hidden");
-    revealView.classList.remove("hidden");
-    pill.textContent = "Unlocked";
-    confettiBurst(160);
-  }
+  // Envelope open
+  const env = document.getElementById("env");
+  document.getElementById("seal").onclick = ()=> env.classList.toggle("opened");
 
-  // Countdown logic
-  function tick(){
-    const now = new Date();
-    const diff = targetDate - now;
+  // Reasons cards
+  const reasonsEl = document.getElementById("reasons");
+  reasons.forEach((r, idx)=>{
+    const card = document.createElement("div");
+    card.className = "flip";
+    card.innerHTML = `
+      <div class="flipInner">
+        <div class="face front">
+          <b>${idx+1}. Tap to open</b>
+          <span>${r[0]}</span>
+        </div>
+        <div class="face back">
+          <b>${r[0]}</b>
+          <span>${r[1]}</span>
+        </div>
+      </div>`;
+    card.onclick = ()=> card.classList.toggle("isFlipped");
+    reasonsEl.appendChild(card);
+  });
+  const reasonsBlock = document.getElementById("reasonsBlock");
+  document.getElementById("showReasonsBtn").onclick = ()=> reasonsBlock.classList.toggle("hidden");
 
-    // Allow preview with URL param ?preview=1
-    const url = new URL(location.href);
-    const forcePreview = url.searchParams.get("preview") === "1";
-
-    if(diff <= 0 || forcePreview){
-      showReveal();
-      return;
+  // Copy link button
+  document.getElementById("copyLinkBtn").onclick = async ()=>{
+    try{
+      await navigator.clipboard.writeText(location.href);
+      pill.textContent = "Link copied";
+      setTimeout(()=> pill.textContent = pill.dataset.state || pill.textContent, 1200);
+    }catch(e){
+      alert("Copy failed. Just copy from the address bar.");
     }
+  };
 
-    showCountdown();
-    const total = Math.floor(diff/1000);
-    const days = Math.floor(total / (3600*24));
-    const hours = Math.floor((total % (3600*24)) / 3600);
-    const mins = Math.floor((total % 3600) / 60);
-    const secs = total % 60;
-
-    document.getElementById("d").textContent = String(days).padStart(2,"0");
-    document.getElementById("h").textContent = String(hours).padStart(2,"0");
-    document.getElementById("m").textContent = String(mins).padStart(2,"0");
-    document.getElementById("s").textContent = String(secs).padStart(2,"0");
-  }
-  setInterval(tick, 250);
-  tick();
-
-  // Buttons
+  // Preview reveal
   document.getElementById("previewBtn").onclick = ()=>{
     const url = new URL(location.href);
     url.searchParams.set("preview","1");
     location.href = url.toString();
   };
 
-  document.getElementById("shareHintBtn").onclick = ()=>{
-    alert(
-`To share as a link:
-1) Upload this folder to GitHub (or Netlify)
-2) Enable GitHub Pages (Settings → Pages)
-3) Send her the link
-Optional: generate a QR code from the link`
-    );
+  function showLocked(){
+    lockedView.classList.remove("hidden");
+    unlockedView.classList.add("hidden");
+    headline.textContent = "Your birthday unlocks in…";
+    pill.textContent = "Locked";
+    pill.dataset.state = "Locked";
+  }
+  function showUnlocked(){
+    lockedView.classList.add("hidden");
+    unlockedView.classList.remove("hidden");
+    headline.textContent = "Happy Birthday, Ishara";
+    pill.textContent = "Unlocked";
+    pill.dataset.state = "Unlocked";
+  }
+
+  // Countdown + progress
+  const start = Date.now(); // used only for progress smoothing
+  const totalSpan = Math.max(1, targetDate.getTime() - start);
+
+  function tick(){
+    const url = new URL(location.href);
+    const forcePreview = url.searchParams.get("preview")==="1";
+
+    const now = new Date();
+    const diff = targetDate - now;
+
+    if (diff <= 0 || forcePreview){
+      showUnlocked();
+      // set ring complete
+      prog.style.strokeDasharray = CIRC.toFixed(1);
+      prog.style.strokeDashoffset = "0";
+      pct.textContent = "100%";
+      return;
+    }
+
+    showLocked();
+
+    const sec = Math.floor(diff/1000);
+    const days = Math.floor(sec / (3600*24));
+    const hours = Math.floor((sec % (3600*24)) / 3600);
+    const mins = Math.floor((sec % 3600) / 60);
+    const secs = sec % 60;
+
+    document.getElementById("d").textContent = String(days).padStart(2,"0");
+    document.getElementById("h").textContent = String(hours).padStart(2,"0");
+    document.getElementById("m").textContent = String(mins).padStart(2,"0");
+    document.getElementById("s").textContent = String(secs).padStart(2,"0");
+
+    // progress from 0..100 (time elapsed since page opened vs total until target at open time)
+    const elapsed = Math.min(totalSpan, Math.max(0, Date.now() - start));
+    const p = Math.min(99.9, (elapsed/totalSpan)*100);
+    pct.textContent = Math.floor(p) + "%";
+    const offset = CIRC * (1 - p/100);
+    prog.style.strokeDasharray = CIRC.toFixed(1);
+    prog.style.strokeDashoffset = offset.toFixed(1);
+  }
+  setInterval(tick, 250);
+  tick();
+
+  // Gallery + lightbox
+  const mainImg = document.getElementById("mainImg");
+  const thumbs = document.getElementById("thumbs");
+  const cap = document.getElementById("cap");
+  const imgDebug = document.getElementById("imgDebug");
+  let current = 0;
+
+  function setActive(i){
+    current = (i + photos.length) % photos.length;
+    const src = photos[current];
+
+    mainImg.src = src;
+    cap.textContent = `Photo ${current+1} of ${photos.length} (tap to full screen)`;
+
+    [...thumbs.querySelectorAll("img")].forEach((t, idx)=>{
+      t.classList.toggle("active", idx===current);
+    });
+  }
+
+  // Add thumbs
+  photos.forEach((src, idx)=>{
+    const im = document.createElement("img");
+    im.src = src;
+    im.alt = "Photo " + (idx+1);
+    im.loading = "lazy";
+    im.onclick = ()=> setActive(idx);
+    im.onerror = ()=>{
+      imgDebug.textContent =
+        "Image not found: " + src +
+        " | Check your repo has /images/1.jpg etc (case-sensitive).";
+    };
+    thumbs.appendChild(im);
+  });
+
+  mainImg.onerror = ()=>{
+    imgDebug.textContent =
+      "Main image not found: " + photos[current] +
+      " | Check file names and extensions (.jpg/.jpeg/.png).";
   };
+
+  // Next/Prev
+  document.getElementById("prevBtn").onclick = ()=> setActive(current-1);
+  document.getElementById("nextBtn").onclick = ()=> setActive(current+1);
+
+  // Modal
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modalImg");
+  const modalCap = document.getElementById("modalCap");
+  function openModal(){
+    modal.classList.add("show");
+    modalImg.src = photos[current];
+    modalCap.textContent = `Photo ${current+1} of ${photos.length}`;
+  }
+  function closeModal(){ modal.classList.remove("show"); }
+  mainImg.onclick = openModal;
+  document.getElementById("closeModal").onclick = closeModal;
+  modal.onclick = (e)=>{ if(e.target===modal) closeModal(); };
+
+  // init
+  setActive(0);
 </script>
 </body>
 </html>
